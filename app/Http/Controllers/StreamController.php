@@ -41,7 +41,7 @@ class StreamController extends Controller
             ]);
 
             if($stream){
-              return redirect()->route('classes.create')
+              return redirect()->route('sclasses.create')
               ->with('success','Stream created successfully');
             }
 
@@ -67,7 +67,7 @@ class StreamController extends Controller
      */
     public function edit(Stream $stream)
     {
-        //
+
     }
 
     /**
@@ -79,7 +79,9 @@ class StreamController extends Controller
      */
     public function update(Request $request, Stream $stream)
     {
-        //
+        $stream->name = $request->input('update_name');
+        $stream->save();
+        return redirect()->route('sclasses.create')->with('success','stream updated successfully');
     }
 
     /**
@@ -90,6 +92,13 @@ class StreamController extends Controller
      */
     public function destroy(Stream $stream)
     {
-        //
+      //dd($company);
+      $findstream = Stream::find( $stream->id );
+      if($findstream->delete()){
+      //redirect
+      return redirect()->route('sclasses.create')->with('success','stream deleted successfully');
+      }
+
+      return back()->withInput()->with('errors','stream could not be deleted');
     }
 }

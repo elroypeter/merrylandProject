@@ -21,7 +21,7 @@ class StudentsController extends Controller
         $students = Student::all();
         return view('students.index', compact('students'));
 
-        
+
     }
 
     /**
@@ -31,7 +31,7 @@ class StudentsController extends Controller
      */
     public function create()
     {
-        $classes = StuClass::all();
+        $classes = Sclass::all();
         $streams = Stream::all();
         $subjects = Subject::all();
         return view('students.create', compact('streams', 'classes','subjects'));
@@ -148,7 +148,7 @@ class StudentsController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        
+
         $student->update($request->validate([
                             'regiNo'=>'required',
                             'level'=> 'required',

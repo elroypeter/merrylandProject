@@ -8,18 +8,24 @@ class CreateSclassesTable extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
     public function up()
     {
         Schema::create('sclasses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->integer('level_id')->unsigned();
+            $table->integer('classnumber')->unsigned();
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
     public function down()
     {

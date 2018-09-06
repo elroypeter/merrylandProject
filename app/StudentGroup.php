@@ -21,5 +21,8 @@ class StudentGroup extends Model
 
     	return $this->hasMany(Subject::class,'available_for_stdgroup_id');
     }
+		public function sclass(){
+    	return $this->hasMany(Sclass::class,'sclass_id');
+    }
 
 }

@@ -15,4 +15,8 @@ class Stream extends Model
     return $this->hasMany('App\SclassStream','stream_id');
   }
 
+  public function sclass(){
+    return $this->belongsTo('App\Sclass');
+  }
+
 }

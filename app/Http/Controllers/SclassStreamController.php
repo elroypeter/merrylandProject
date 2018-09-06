@@ -26,8 +26,7 @@ class SclassStreamController extends Controller
      */
     public function create()
     {
-        $stream = Stream::all();
-        return view('class.create', ['stream' => $stream]);
+
     }
 
     /**
@@ -38,7 +37,23 @@ class SclassStreamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $check = SclassStream::where('sclass_id',$request->input('class_id'))
+                          ->where('stream_id',$request->input('stream_id'))->first();
+      // dd($check);
+      if(!$check){
+            $newclassstream = SclassStream::create([
+              'sclass_id'=>$request->input('class_id'),
+              'stream_id'=>$request->input('stream_id')
+            ]);
+            if($newclassstream){
+                return redirect()->route('sclasses.create')
+                ->with('success','class assigned successfully');
+              }else {
+                return back()->withErrors(['errors'=>'Error while creating stream-class assignment'])->withInput();
+              }
+            }else {
+              return back()->withErrors(['errors'=>'Class-stream assignment already exists!!!'])->withInput();
+            }
     }
 
     /**

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Sclass;
 use App\SclassStream;
+use App\Stream;
+use App\StudentGroup;
 use Illuminate\Http\Request;
 
 class SclassController extends Controller
@@ -25,7 +27,26 @@ class SclassController extends Controller
      */
     public function create()
     {
-        //
+        $arr = [];
+        $index = 0;
+
+        $view_stream = Stream::all();
+        $myclass = Sclass::all();
+        $mylevel = StudentGroup::all();
+
+        foreach ($myclass as $value) {
+          $arr[$index] = $value;
+          $index = $index + 1;
+          // break;
+        }
+
+        // foreach ($arr[0]->sclassstream as $key) {
+        //   $f = $key;
+        //   break;
+        // }
+        // dd($f->stream->name);
+        // dd($arr[0]->sclassstream);
+        return view('class.create',['view_stream'=>$view_stream, 'mylevel'=>$mylevel, 'arr'=>$arr]);
     }
 
     /**
@@ -38,36 +59,17 @@ class SclassController extends Controller
     {
         $newclass = Sclass::create([
           'name'=>$request->input('classname'),
-          'class_number'=>$request->input('classnumber')
+          'classnumber'=>$request->input('classnumber'),
+          'level_id'=>$request->input('level')
         ]);
 
         if($newclass){
-          // dd($request->all());
-          $validator=0;
-          $check = SclassStream::where('stream_id',$request->input('streamid'))->get();
-              foreach ($check as  $class_stream) {
-                if($class_stream->sclass->name == $newclass->name){
-                  $validator++;
-                }
-              }
-        
-          if($validator==0){
-              $assign_class_to_stream = SclassStream::create([
-                'sclass_id'=>$newclass->id,
-                'stream_id'=>$request->input('streamid')
-              ]);
-
-                  if($assign_class_to_stream){
-                      return redirect()->route('classes.create')
-                      ->with('success','class created successfully');
-                    }else {
-                      return back()->withErrors(['errors'=>'Error while creating class'])->withInput();
-                    }
-
+            return redirect()->route('sclasses.create')
+            ->with('success','class created successfully');
           }else {
-            return back()->withErrors(['errors'=>'Class already exists'])->withInput();
+            return back()->withErrors(['errors'=>'Error while creating class'])->withInput();
           }
-        }
+
     }
 
     /**
