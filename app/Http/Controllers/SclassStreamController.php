@@ -30,8 +30,6 @@ class SclassStreamController extends Controller
      */
     public function create()
     {
-        $stream = Stream::all();
-        return view('class.create', ['stream' => $stream]);
     }
 
     /**
@@ -42,7 +40,6 @@ class SclassStreamController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**

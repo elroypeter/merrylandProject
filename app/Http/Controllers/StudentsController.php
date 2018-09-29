@@ -22,7 +22,6 @@ class StudentsController extends Controller
         $students = Student::all();
         return view('students.index', compact('students'));
 
-        
     }
 
     /**
@@ -148,7 +147,6 @@ class StudentsController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        
         $student->update($request->validate([
                             'regiNo'=>'required',
                             'level'=> 'required',

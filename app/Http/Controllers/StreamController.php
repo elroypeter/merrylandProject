@@ -41,7 +41,6 @@ class StreamController extends Controller
             ]);
 
             if($stream){
-              return redirect()->route('classes.create')
               ->with('success','Stream created successfully');
             }
 
@@ -67,7 +66,6 @@ class StreamController extends Controller
      */
     public function edit(Stream $stream)
     {
-        //
     }
 
     /**
@@ -79,7 +77,6 @@ class StreamController extends Controller
      */
     public function update(Request $request, Stream $stream)
     {
-        //
     }
 
     /**
@@ -90,6 +87,5 @@ class StreamController extends Controller
      */
     public function destroy(Stream $stream)
     {
-        //
     }
 }
